@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="inti2008" EntityNamespace="inti2008.Data" ContextNamespace="inti2008.Data" Class="IntiDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Provider="SQLServer" Mode="ConnectionString" ConnectionString="Data source=database.onricoh.se;Initial catalog=interntipset;User Id=inti;Password=brollan1"/>
+  <!-- ny skarp connection -->
+  <!--Data source=database.onricoh.se;Initial catalog=interntipset;User Id=inti;Password=brollan1-->
+  <!-- nygammal skarp connection -->
+  <!--Data source=wsp-sql01;Initial catalog=interntipset;User Id=inti;Password=brollan1-->
+  <!-- lokal connection -->
+  <!--Data Source=PC01127\SQLEXPRESS;Initial Catalog=inti;User ID=inti;Password=brollan1-->
+  <!-- gammal skarp connection -->
+  <!--Data source=CL-SQL01;Initial catalog=interntipset;User Id=inti;Password=brollan1-->
+  <Table Name="dbo.ext_ChangeLog" Member="Ext_ChangeLog">
+    <Type Name="Ext_ChangeLog">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ObjectGUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ObjectType" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="UserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Client" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LogDate" Type="System.DateTime" DbType="DateTime" CanBeNull="false" />
+      <Column Name="Action" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Association Name="FK_ext_Forum_User" Member="Sys_User" ThisKey="UserGUID" Type="Sys_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_Forum" Member="Ext_Forum">
+    <Type Name="Ext_Forum">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ForumCategoryGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ResponseToGUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="UserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Body" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+      <Column Name="PostedDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="FK_ext_Forum_ForumCategory" Member="Ext_ForumCategory" ThisKey="ForumCategoryGUID" Type="Ext_ForumCategory" IsForeignKey="true" />
+      <Association Name="FK_ext_Forum_User" Member="Sys_User" ThisKey="UserGUID" Type="Sys_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_ForumCategory" Member="Ext_ForumCategory">
+    <Type Name="Ext_ForumCategory">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Association Name="FK_ext_Forum_ForumCategory" Member="Ext_Forum" OtherKey="ForumCategoryGUID" Type="Ext_Forum" DeleteRule="NO ACTION" />
+      <Association Name="FK_ext_ForumCategory_Tournament" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_Message" Member="Ext_Message">
+    <Type Name="Ext_Message">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FromUserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Body" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+      <Column Name="SentDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="FK_ext_Message_User" Member="Sys_User" ThisKey="FromUserGUID" Type="Sys_User" IsForeignKey="true" />
+      <Association Name="FK_ext_MessageRecipient_Message" Member="Ext_MessageRecipient" OtherKey="MessageGUID" Type="Ext_MessageRecipient" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_MessageRecipient" Member="Ext_MessageRecipient">
+    <Type Name="Ext_MessageRecipient">
+      <Column Name="MessageGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RecipientUserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ReadOn" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="FK_ext_MessageRecipient_Message" Member="Ext_Message" ThisKey="MessageGUID" Type="Ext_Message" IsForeignKey="true" />
+      <Association Name="FK_ext_MessageRecipient_User" Member="Sys_User" ThisKey="RecipientUserGUID" Type="Sys_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_News" Member="Ext_News">
+    <Type Name="Ext_News">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ValidFrom" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ValidTo" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Header" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Picture" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Body" Type="System.String" DbType="VarChar(4048)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_PrivateTournament" Member="Ext_PrivateTournament">
+    <Type Name="Ext_PrivateTournament">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="IsLimitedInTime" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="StartDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EndDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsVisibleForAll" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsOpenForAll" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ext_PrivateTournament_Tournament" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+      <Association Name="ext_PrivateTournament_User" Member="Sys_User" ThisKey="UserGUID" Type="Sys_User" IsForeignKey="true" />
+      <Association Name="FK_ext_PrivateTournamentParticipant_PrivateTournament" Member="Ext_PrivateTournamentParticipant" OtherKey="PrivateTournamentGUID" Type="Ext_PrivateTournamentParticipant" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_PrivateTournamentParticipant" Member="Ext_PrivateTournamentParticipant">
+    <Type Name="Ext_PrivateTournamentParticipant">
+      <Column Name="PrivateTournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TeamGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IsAccepted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK_ext_PrivateTournamentParticipant_PrivateTournament" Member="Ext_PrivateTournament" ThisKey="PrivateTournamentGUID" Type="Ext_PrivateTournament" IsForeignKey="true" />
+      <Association Name="FK_ext_PrivateTournamentParticipant_Team" Member="Inti_Team" ThisKey="TeamGUID" Type="Inti_Team" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ext_UserFavoriteTeam" Member="Ext_UserFavoriteTeam">
+    <Type Name="Ext_UserFavoriteTeam">
+      <Column Name="UserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+      <Column Name="TeamGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+      <Association Name="FK_ext_UserFavoriteTeam_sys_User" Member="Sys_User" ThisKey="UserGUID" Type="Sys_User" IsForeignKey="true"/>
+      <Association Name="FK_ext_UserFavoriteTeam_inti_Team" Member="Inti_Team" ThisKey="TeamGUID" Type="Inti_Team" IsForeignKey="true"/>
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_Athlete" Member="Inti_Athlete">
+    <Type Name="Inti_Athlete">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Picture" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Association Name="FK_inti_AthleteClub_Athlete" Member="Inti_AthleteClub" OtherKey="AthleteGUID" Type="Inti_AthleteClub" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_AthleteClub" Member="Inti_AthleteClub">
+    <Type Name="Inti_AthleteClub">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AthleteGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ClubGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PositionGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK_inti_AthleteClub_Athlete" Member="Inti_Athlete" ThisKey="AthleteGUID" Type="Inti_Athlete" IsForeignKey="true" />
+      <Association Name="FK_inti_AthleteClub_Club" Member="Inti_Club" ThisKey="ClubGUID" Type="Inti_Club" IsForeignKey="true" />
+      <Association Name="FK_inti_AthleteClub_Position" Member="Inti_Position" ThisKey="PositionGUID" Type="Inti_Position" IsForeignKey="true" />
+      <Association Name="FK_inti_TeamAthlete_Athlete" Member="Inti_TeamAthlete" OtherKey="AthleteGUID" Type="Inti_TeamAthlete" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_TeamTransfer_AthleteIn" Member="Inti_TeamTransfer" OtherKey="AthleteInGUID" Type="Inti_TeamTransfer" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_TeamTransfer_AthleteOut" Member="Inti_TeamTransfer_AthleteOut" OtherKey="AthleteOutGUID" Type="Inti_TeamTransfer" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_MatchPointEvent_AthleteClub" Member="Inti_MatchPointEvent" OtherKey="AthleteClubGUID" Type="Inti_MatchPointEvent" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_Club" Member="Inti_Club">
+    <Type Name="Inti_Club">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="FK_inti_AthleteClub_Club" Member="Inti_AthleteClub" OtherKey="ClubGUID" Type="Inti_AthleteClub" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_Match_AwayClub" Member="Inti_Match" OtherKey="AwayClub" Type="Inti_Match" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_Match_HomeClub" Member="Inti_Match_HomeClub" OtherKey="HomeClub" Type="Inti_Match" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_Match" Member="Inti_Match">
+    <Type Name="Inti_Match">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TourDay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MatchDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="HomeClub" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="AwayClub" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="HomeScore" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AwayScore" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsUpdated" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Updater" Type="System.Guid" DbType="UniqueIdentifier NULL" CanBeNull="true" />
+      <Column Name="StartUpdateDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="FK_inti_Match_AwayClub" Member="Inti_Club" ThisKey="AwayClub" Type="Inti_Club" IsForeignKey="true" />
+      <Association Name="FK_inti_Match_HomeClub" Member="HomeClubInti_Club" ThisKey="HomeClub" Type="Inti_Club" IsForeignKey="true" />
+      <Association Name="FK_inti_Match_Tournament" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+      <Association Name="FK_inti_MatchPointEvent_Match" Member="Inti_MatchPointEvent" OtherKey="MatchGUID" Type="Inti_MatchPointEvent" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_MatchPointEvent" Member="Inti_MatchPointEvent">
+    <Type Name="Inti_MatchPointEvent">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MatchGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PointEventGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="AthleteClubGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_inti_MatchPointEvent_Match" Member="Inti_Match" ThisKey="MatchGUID" Type="Inti_Match" IsForeignKey="true" />
+      <Association Name="FK_inti_MatchPointEvent_PointEvent" Member="Inti_PointEvent" ThisKey="PointEventGUID" Type="Inti_PointEvent" IsForeignKey="true" />
+      <Association Name="FK_inti_MatchPointEvent_AthleteClub" Member="Inti_AthleteClub" ThisKey="AthleteClubGUID" Type="Inti_AthleteClub" IsForeignKey="true" />
+      <Association Name="FK_inti_TeamPointEvents_MatchPointEvent" Member="Inti_TeamPointEvents" OtherKey="MatchPointEventGUID" Type="Inti_TeamPointEvents" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_PointEvent" Member="Inti_PointEvent">
+    <Type Name="Inti_PointEvent">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="FK_inti_MatchPointEvent_PointEvent" Member="Inti_MatchPointEvent" OtherKey="PointEventGUID" Type="Inti_MatchPointEvent" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_PointEvent_Tournament" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+      <Association Name="FK_inti_PointEventPosition_PointEvent" Member="Inti_PointEventPosition" OtherKey="PointEventGUID" Type="Inti_PointEventPosition" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_PointEventPosition" Member="Inti_PointEventPosition">
+    <Type Name="Inti_PointEventPosition">
+      <Column Name="PointEventGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PositionGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FK_inti_PointEventPosition_PointEvent" Member="Inti_PointEvent" ThisKey="PointEventGUID" Type="Inti_PointEvent" IsForeignKey="true" />
+      <Association Name="FK_inti_PointEventPosition_Position" Member="Inti_Position" ThisKey="PositionGUID" Type="Inti_Position" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_Position" Member="Inti_Position">
+    <Type Name="Inti_Position">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false"/>
+      <Association Name="FK_inti_AthleteClub_Position" Member="Inti_AthleteClub" OtherKey="PositionGUID" Type="Inti_AthleteClub" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_PointEventPosition_Position" Member="Inti_PointEventPosition" OtherKey="PositionGUID" Type="Inti_PointEventPosition" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_Team" Member="Inti_Team">
+    <Type Name="Inti_Team">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Picture" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Presentation" Type="System.String" DbType="VarChar(1024)" CanBeNull="true" />
+      <Column Name="BonusPoints" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsPaid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="FK_ext_PrivateTournamentParticipant_Team" Member="Ext_PrivateTournamentParticipant" OtherKey="TeamGUID" Type="Ext_PrivateTournamentParticipant" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_Team_Tournament" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+      <Association Name="FK_inti_Team_User" Member="Sys_User" ThisKey="UserGUID" Type="Sys_User" IsForeignKey="true" />
+      <Association Name="FK_inti_TeamTransfer_Team" Member="Inti_TeamTransfer" OtherKey="TeamGUID" Type="Inti_TeamTransfer" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_TeamVersion" Member="Inti_TeamVersion" OtherKey="TeamGUID" Type="Inti_TeamVersion" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_TeamPointEvents_Team" Member="Inti_TeamPointEvents" OtherKey="TeamGUID" Type="Inti_TeamPointEvents" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_TeamAthlete" Member="Inti_TeamAthlete">
+    <Type Name="Inti_TeamAthlete">
+      <Column Name="AthleteGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TeamVersionGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Points" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="FK_inti_TeamAthlete_Athlete" Member="Inti_AthleteClub" ThisKey="AthleteGUID" Type="Inti_AthleteClub" IsForeignKey="true" />
+      <Association Name="FK_inti_TeamAthlete_TeamVersion" Member="Inti_TeamVersion" ThisKey="TeamVersionGUID" Type="Inti_TeamVersion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_TeamTransfer" Member="Inti_TeamTransfer">
+    <Type Name="Inti_TeamTransfer">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TeamGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TransferDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="AthleteOutGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="AthleteInGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="FK_inti_TeamTransfer_AthleteIn" Member="Inti_AthleteClub" ThisKey="AthleteInGUID" Type="Inti_AthleteClub" IsForeignKey="true" />
+      <Association Name="FK_inti_TeamTransfer_AthleteOut" Member="AthleteOutGU" ThisKey="AthleteOutGUID" Type="Inti_AthleteClub" IsForeignKey="true" />
+      <Association Name="FK_inti_TeamTransfer_Team" Member="Inti_Team" ThisKey="TeamGUID" Type="Inti_Team" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_TeamVersion" Member="Inti_TeamVersion">
+    <Type Name="Inti_TeamVersion">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TeamGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Version" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ValidFrom" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="ValidTo" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Association Name="FK_inti_TeamAthlete_TeamVersion" Member="Inti_TeamAthlete" OtherKey="TeamVersionGUID" Type="Inti_TeamAthlete" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_TeamVersion" Member="Inti_Team" ThisKey="TeamGUID" Type="Inti_Team" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_TeamPointEvents" Member="Inti_TeamPointEvents">
+    <Type Name="Inti_TeamPointEvents">
+      <Column Name="MatchPointEventGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+      <Column Name="TeamGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+      <Association Name="FK_inti_TeamPointEvents_MatchPointEvent" Member="Inti_MatchPointEvent" ThisKey="MatchPointEventGUID" Type="Inti_MatchPointEvent" IsForeignKey="true"/>
+      <Association Name="FK_inti_TeamPointEvents_Team" Member="Inti_Team" ThisKey="TeamGUID" Type="Inti_Team" IsForeignKey="true"/>
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_Tournament" Member="Inti_Tournament">
+    <Type Name="Inti_Tournament">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="PublicateDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StartRegistration" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndRegistration" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NmbrOfDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NmbrOfClubs" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NmbrOfTransfers" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Budget" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IncludeManager" Type="System.Boolean" DbType="Bit" CanBeNull="false"/>
+      <Association Name="ext_PrivateTournament_Tournament" Member="Ext_PrivateTournament" OtherKey="TournamentGUID" Type="Ext_PrivateTournament" DeleteRule="NO ACTION" />
+      <Association Name="FK_ext_ForumCategory_Tournament" Member="Ext_ForumCategory" OtherKey="TournamentGUID" Type="Ext_ForumCategory" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_Match_Tournament" Member="Inti_Match" OtherKey="TournamentGUID" Type="Inti_Match" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_PointEvent_Tournament" Member="Inti_PointEvent" OtherKey="TournamentGUID" Type="Inti_PointEvent" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_Team_Tournament" Member="Inti_Team" OtherKey="TournamentGUID" Type="Inti_Team" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_TransferPeriod_Tournament" Member="Inti_TransferPeriod" OtherKey="TournamentGUID" Type="Inti_TransferPeriod" DeleteRule="NO ACTION" />
+      <Association Name="FK_intiTournamentRule" Member="Inti_TournamentRule" OtherKey="TournamentGUID" Type="Inti_TournamentRule" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_TournamentRule" Member="Inti_TournamentRule">
+    <Type Name="Inti_TournamentRule">
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Header" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Body" Type="System.String" DbType="VarChar(1024) NOT NULL" CanBeNull="false" />
+      <Association Name="FK_intiTournamentRule" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inti_TransferPeriod" Member="Inti_TransferPeriod">
+    <Type Name="Inti_TransferPeriod">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TournamentGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Association Name="FK_inti_TransferPeriod_Tournament" Member="Inti_Tournament" ThisKey="TournamentGUID" Type="Inti_Tournament" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Parameter" Member="Sys_Parameter">
+    <Type Name="Sys_Parameter">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="VarChar(2048)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_Permission" Member="Sys_Permission">
+    <Type Name="Sys_Permission">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="FK_UserPermission_Permission" Member="Sys_UserPermission" OtherKey="PermissionGUID" Type="Sys_UserPermission" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_User" Member="Sys_User">
+    <Type Name="Sys_User">
+      <Column Name="GUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"  />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="ext_PrivateTournament_User" Member="Ext_PrivateTournament" OtherKey="UserGUID" Type="Ext_PrivateTournament" DeleteRule="NO ACTION" />
+      <Association Name="FK_ext_Forum_User" Member="Ext_Forum" OtherKey="UserGUID" Type="Ext_Forum" DeleteRule="NO ACTION" />
+      <Association Name="FK_ext_Message_User" Member="Ext_Message" OtherKey="FromUserGUID" Type="Ext_Message" DeleteRule="NO ACTION" />
+      <Association Name="FK_ext_MessageRecipient_User" Member="Ext_MessageRecipient" OtherKey="RecipientUserGUID" Type="Ext_MessageRecipient" DeleteRule="NO ACTION" />
+      <Association Name="FK_inti_Team_User" Member="Inti_Team" OtherKey="UserGUID" Type="Inti_Team" DeleteRule="NO ACTION" />
+      <Association Name="FK_UserPermission_User" Member="Sys_UserPermission" OtherKey="UserGUID" Type="Sys_UserPermission" DeleteRule="NO ACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.sys_UserPermission" Member="Sys_UserPermission">
+    <Type Name="Sys_UserPermission">
+      <Column Name="UserGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PermissionGUID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="FK_UserPermission_Permission" Member="Sys_Permission" ThisKey="PermissionGUID" Type="Sys_Permission" IsForeignKey="true" />
+      <Association Name="FK_UserPermission_User" Member="Sys_User" ThisKey="UserGUID" Type="Sys_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

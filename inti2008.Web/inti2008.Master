@@ -1,0 +1,95 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="inti2008.master.cs" Inherits="inti2008.Web.inti2008" %>
+<%@ Import Namespace="StackExchange.Profiling" %>
+
+<%@ Register src="menu.ascx" tagname="menu" tagprefix="uc1" %>
+<%@ Register src="TournamentSelector.ascx" tagname="tourSelect" tagprefix="uc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Fantasiliga för Premier League, EM och VM" />
+    <meta charset="UTF-8" >
+    <link rel="shortcut icon" href="http://interntipset.com/img/favicon.ico" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="css/inti.min.css?<%=DateTime.Now.Ticks %>" />
+    
+    <style>
+        .table td
+        {
+            cursor:pointer;
+        }
+        .highlight {
+            font-weight: bold;
+        }
+        #main-content img {
+            max-width:100%; 
+            max-height:100%;
+        }
+
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background-color: #aaa;">
+    <div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <form id="form1" runat="server">
+        <div class="container" style="background-color: #fff;">
+            <div class="row hidden-xs">
+                <div class="col-md-12" style="height: 200px; background: url('/img/background.jpg');background-size: cover; background-position-y: center;">
+                    <img src="/img/header.png" alt="interntipset header" style="padding: 20px;" />
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <uc1:menu ID="menu1" runat="server" />    
+                </div>
+            </div>
+            
+            <div class="row" id="main-content">
+                <div class="col-md-12">
+                    <asp:ContentPlaceHolder ID="Content" runat="server" />
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p><asp:Label ID="lblFooterText" runat="server"></asp:Label> </p>
+                    <p>Gå till: <uc1:tourSelect ID="tournamentSelector" runat="server" /></p>
+                    <div>
+                        <a href="http://facebook.com/interntipset"><img src="/img/icon-fb.png" alt="facebook" /></a>
+                        <a href="http://twitter.com/interntipset"><img src="/img/icon-twitter.png" alt="twitter" /></a>
+                        <a href="http://plus.google.com/u/0/103416199842556708302?rel=author" rel="author"><img src="/img/icon-gplus.png" alt="g+" /></a>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <%= MiniProfiler.RenderIncludes()%>
+    
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-43283610-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+</script>
+</body>
+</html>

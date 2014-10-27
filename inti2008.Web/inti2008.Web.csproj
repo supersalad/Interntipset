@@ -1,0 +1,745 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{67C002FB-FFAA-4A71-926A-89730DF35E76}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>inti2008.Web</RootNamespace>
+    <AssemblyName>inti2008.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <UseIISExpress>true</UseIISExpress>
+    <TargetFrameworkProfile />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
+    <Reference Include="BitlyDotNET">
+      <HintPath>..\packages\Bitly.Net.0.0.6.0\lib\BitlyDotNET.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Silverlight, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TweetSharp.2.3.1\lib\4.0\TweetSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminBatchEditMatches.aspx" />
+    <Content Include="bootstrap\3.1.1\css\bootstrap-theme.css" />
+    <Content Include="bootstrap\3.1.1\css\bootstrap-theme.min.css" />
+    <Content Include="bootstrap\3.1.1\css\bootstrap.css" />
+    <Content Include="bootstrap\3.1.1\css\bootstrap.min.css" />
+    <Content Include="bootstrap\3.1.1\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="bootstrap\3.1.1\js\bootstrap.js" />
+    <Content Include="bootstrap\3.1.1\js\bootstrap.min.js" />
+    <Content Include="Club.aspx" />
+    <Content Include="css\inti.css">
+      <DependentUpon>inti.less</DependentUpon>
+    </Content>
+    <Content Include="css\inti.min.css">
+      <DependentUpon>inti.less</DependentUpon>
+    </Content>
+    <Content Include="Default.aspx" />
+    <Content Include="img\background.jpg" />
+    <Content Include="img\bg.png" />
+    <Content Include="img\eurobg.jpg" />
+    <Content Include="img\favicon.ico" />
+    <Content Include="api\BitlyCallback.ashx" />
+    <Content Include="api\CalendarLink.ashx" />
+    <Content Include="bootstrap\3.1.1\css\bootstrap-theme.css.map" />
+    <Content Include="bootstrap\3.1.1\css\bootstrap.css.map" />
+    <Content Include="bootstrap\3.1.1\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="bootstrap\3.1.1\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="bootstrap\3.1.1\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="bootstrap\3.1.1\less\.csscomb.json" />
+    <Content Include="bootstrap\3.1.1\less\.csslintrc" />
+    <Content Include="bootstrap\3.1.1\less\alerts.less" />
+    <Content Include="bootstrap\3.1.1\less\badges.less" />
+    <Content Include="bootstrap\3.1.1\less\bootstrap.less" />
+    <Content Include="bootstrap\3.1.1\less\breadcrumbs.less" />
+    <Content Include="bootstrap\3.1.1\less\button-groups.less" />
+    <Content Include="bootstrap\3.1.1\less\buttons.less" />
+    <Content Include="bootstrap\3.1.1\less\carousel.less" />
+    <Content Include="bootstrap\3.1.1\less\close.less" />
+    <Content Include="bootstrap\3.1.1\less\code.less" />
+    <Content Include="bootstrap\3.1.1\less\component-animations.less" />
+    <Content Include="bootstrap\3.1.1\less\dropdowns.less" />
+    <Content Include="bootstrap\3.1.1\less\forms.less" />
+    <Content Include="bootstrap\3.1.1\less\glyphicons.less" />
+    <Content Include="bootstrap\3.1.1\less\grid.less" />
+    <Content Include="bootstrap\3.1.1\less\input-groups.less" />
+    <Content Include="bootstrap\3.1.1\less\jumbotron.less" />
+    <Content Include="bootstrap\3.1.1\less\labels.less" />
+    <Content Include="bootstrap\3.1.1\less\list-group.less" />
+    <Content Include="bootstrap\3.1.1\less\media.less" />
+    <Content Include="bootstrap\3.1.1\less\mixins.less" />
+    <Content Include="bootstrap\3.1.1\less\modals.less" />
+    <Content Include="bootstrap\3.1.1\less\navbar.less" />
+    <Content Include="bootstrap\3.1.1\less\navs.less" />
+    <Content Include="bootstrap\3.1.1\less\normalize.less" />
+    <Content Include="bootstrap\3.1.1\less\pager.less" />
+    <Content Include="bootstrap\3.1.1\less\pagination.less" />
+    <Content Include="bootstrap\3.1.1\less\panels.less" />
+    <Content Include="bootstrap\3.1.1\less\popovers.less" />
+    <Content Include="bootstrap\3.1.1\less\print.less" />
+    <Content Include="bootstrap\3.1.1\less\progress-bars.less" />
+    <Content Include="bootstrap\3.1.1\less\responsive-utilities.less" />
+    <Content Include="bootstrap\3.1.1\less\scaffolding.less" />
+    <Content Include="bootstrap\3.1.1\less\tables.less" />
+    <Content Include="bootstrap\3.1.1\less\theme.less" />
+    <Content Include="bootstrap\3.1.1\less\thumbnails.less" />
+    <Content Include="bootstrap\3.1.1\less\tooltip.less" />
+    <Content Include="bootstrap\3.1.1\less\type.less" />
+    <Content Include="bootstrap\3.1.1\less\utilities.less" />
+    <Content Include="bootstrap\3.1.1\less\variables.less" />
+    <Content Include="bootstrap\3.1.1\less\wells.less" />
+    <Content Include="css\inti.less" />
+    <Content Include="css\_inti_overrides.less" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <None Include="Scripts\jquery-2.0.2.intellisense.js" />
+    <Content Include="img\header.png" />
+    <Content Include="img\icon-fb.png" />
+    <Content Include="img\icon-gplus.png" />
+    <Content Include="img\icon-twitter.png" />
+    <Content Include="js\jsrender.min.js" />
+    <Content Include="NewsItem.aspx" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\d3\d3.js" />
+    <Content Include="Scripts\d3\d3.min.js" />
+    <Content Include="Scripts\jquery-2.0.2.js" />
+    <Content Include="Scripts\jquery-2.0.2.min.js" />
+    <Content Include="Scripts\knockout-2.2.1.js" />
+    <Content Include="Scripts\nicEdit.js" />
+    <Content Include="Scripts\nicEditorIcons.gif" />
+    <Content Include="Scripts\UserTeam.js" />
+    <Content Include="TeamBreakDown.ascx" />
+    <Content Include="UserMessages.aspx" />
+    <Content Include="UserTeam\UserTeamEdit_js.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery-2.0.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminApproveUserTeams.aspx.cs">
+      <DependentUpon>AdminApproveUserTeams.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminApproveUserTeams.aspx.designer.cs">
+      <DependentUpon>AdminApproveUserTeams.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminBatchEditMatches.aspx.cs">
+      <DependentUpon>AdminBatchEditMatches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminBatchEditMatches.aspx.designer.cs">
+      <DependentUpon>AdminBatchEditMatches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditClub.aspx.cs">
+      <DependentUpon>AdminEditClub.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditClub.aspx.designer.cs">
+      <DependentUpon>AdminEditClub.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditMatch.aspx.cs">
+      <DependentUpon>AdminEditMatch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditMatch.aspx.designer.cs">
+      <DependentUpon>AdminEditMatch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditNews.aspx.cs">
+      <DependentUpon>AdminEditNews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditNews.aspx.designer.cs">
+      <DependentUpon>AdminEditNews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditRules.aspx.cs">
+      <DependentUpon>AdminEditRules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditRules.aspx.designer.cs">
+      <DependentUpon>AdminEditRules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminEditUser.aspx.cs">
+      <DependentUpon>AdminEditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminEditUser.aspx.designer.cs">
+      <DependentUpon>AdminEditUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminMain.aspx.cs">
+      <DependentUpon>AdminMain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminMain.aspx.designer.cs">
+      <DependentUpon>AdminMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPlayerEdit.aspx.cs">
+      <DependentUpon>AdminPlayerEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPlayerEdit.aspx.designer.cs">
+      <DependentUpon>AdminPlayerEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPlayerImport.aspx.cs">
+      <DependentUpon>AdminPlayerImport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPlayerImport.aspx.designer.cs">
+      <DependentUpon>AdminPlayerImport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPlayerList.aspx.cs">
+      <DependentUpon>AdminPlayerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPlayerList.aspx.designer.cs">
+      <DependentUpon>AdminPlayerList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTournamentEdit.aspx.cs">
+      <DependentUpon>AdminTournamentEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminTournamentEdit.aspx.designer.cs">
+      <DependentUpon>AdminTournamentEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTournamentList.aspx.cs">
+      <DependentUpon>AdminTournamentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminTournamentList.aspx.designer.cs">
+      <DependentUpon>AdminTournamentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUpdateMatch.aspx.cs">
+      <DependentUpon>AdminUpdateMatch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminUpdateMatch.aspx.designer.cs">
+      <DependentUpon>AdminUpdateMatch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="api\BitlyCallback.ashx.cs">
+      <DependentUpon>BitlyCallback.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="api\CalendarLink.ashx.cs">
+      <DependentUpon>CalendarLink.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="api\inti\DTOs.cs" />
+    <Compile Include="api\inti\GetUserTeam.ashx.cs">
+      <DependentUpon>GetUserTeam.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="api\TwAuthCallback.ashx.cs">
+      <DependentUpon>TwAuthCallback.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Club.aspx.cs">
+      <DependentUpon>Club.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Club.aspx.designer.cs">
+      <DependentUpon>Club.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Completion.asmx.cs">
+      <DependentUpon>Completion.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DaySelector.ascx.cs">
+      <DependentUpon>DaySelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DaySelector.ascx.designer.cs">
+      <DependentUpon>DaySelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForumEntries.ascx.cs">
+      <DependentUpon>ForumEntries.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForumEntries.ascx.designer.cs">
+      <DependentUpon>ForumEntries.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ForumViewThread.aspx.cs">
+      <DependentUpon>ForumViewThread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForumViewThread.aspx.designer.cs">
+      <DependentUpon>ForumViewThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForumViewThreads.aspx.cs">
+      <DependentUpon>ForumViewThreads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForumViewThreads.aspx.designer.cs">
+      <DependentUpon>ForumViewThreads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="inti2008.Master.cs">
+      <DependentUpon>inti2008.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="inti2008.Master.designer.cs">
+      <DependentUpon>inti2008.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MatchView.aspx.cs">
+      <DependentUpon>MatchView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MatchView.aspx.designer.cs">
+      <DependentUpon>MatchView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MediaPlayer.aspx.cs">
+      <DependentUpon>MediaPlayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MediaPlayer.aspx.designer.cs">
+      <DependentUpon>MediaPlayer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="menu.ascx.cs">
+      <DependentUpon>menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="menu.ascx.designer.cs">
+      <DependentUpon>menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MessageCreate.aspx.cs">
+      <DependentUpon>MessageCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MessageCreate.aspx.designer.cs">
+      <DependentUpon>MessageCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MessageView.aspx.cs">
+      <DependentUpon>MessageView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MessageView.aspx.designer.cs">
+      <DependentUpon>MessageView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyTournamentEdit.aspx.cs">
+      <DependentUpon>MyTournamentEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyTournamentEdit.aspx.designer.cs">
+      <DependentUpon>MyTournamentEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyTournamentStanding.aspx.cs">
+      <DependentUpon>MyTournamentStanding.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyTournamentStanding.aspx.designer.cs">
+      <DependentUpon>MyTournamentStanding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News.aspx.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News.aspx.designer.cs">
+      <DependentUpon>News.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewsItem.aspx.cs">
+      <DependentUpon>NewsItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewsItem.aspx.designer.cs">
+      <DependentUpon>NewsItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerList.aspx.cs">
+      <DependentUpon>PlayerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlayerList.aspx.designer.cs">
+      <DependentUpon>PlayerList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerSelector.aspx.cs">
+      <DependentUpon>PlayerSelector.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlayerSelector.aspx.designer.cs">
+      <DependentUpon>PlayerSelector.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerView.aspx.cs">
+      <DependentUpon>PlayerView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PlayerView.aspx.designer.cs">
+      <DependentUpon>PlayerView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PrivateTournaments.ascx.cs">
+      <DependentUpon>PrivateTournaments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrivateTournaments.ascx.designer.cs">
+      <DependentUpon>PrivateTournaments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="PrivateTournaments.aspx.cs">
+      <DependentUpon>PrivateTournaments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PrivateTournaments.aspx.designer.cs">
+      <DependentUpon>PrivateTournaments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rss.ascx.cs">
+      <DependentUpon>Rss.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Rss.ascx.designer.cs">
+      <DependentUpon>Rss.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="RulesShow.aspx.cs">
+      <DependentUpon>RulesShow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RulesShow.aspx.designer.cs">
+      <DependentUpon>RulesShow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SignUp.aspx.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignUp.aspx.designer.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Standing.aspx.cs">
+      <DependentUpon>Standing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Standing.aspx.designer.cs">
+      <DependentUpon>Standing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TeamBreakDown.ascx.cs">
+      <DependentUpon>TeamBreakDown.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TeamBreakDown.ascx.designer.cs">
+      <DependentUpon>TeamBreakDown.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TeamView.aspx.cs">
+      <DependentUpon>TeamView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TeamView.aspx.designer.cs">
+      <DependentUpon>TeamView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TournamentSelector.ascx.cs">
+      <DependentUpon>TournamentSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TournamentSelector.ascx.designer.cs">
+      <DependentUpon>TournamentSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="TournamentStanding.ascx.cs">
+      <DependentUpon>TournamentStanding.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TournamentStanding.ascx.designer.cs">
+      <DependentUpon>TournamentStanding.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UploadImage.ascx.cs">
+      <DependentUpon>UploadImage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UploadImage.ascx.designer.cs">
+      <DependentUpon>UploadImage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserMessages.aspx.cs">
+      <DependentUpon>UserMessages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserMessages.aspx.designer.cs">
+      <DependentUpon>UserMessages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserSettings.aspx.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserSettings.aspx.designer.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserTeamEdit.aspx.cs">
+      <DependentUpon>UserTeamEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserTeamEdit.aspx.designer.cs">
+      <DependentUpon>UserTeamEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserTeamUploadImage.aspx.cs">
+      <DependentUpon>UserTeamUploadImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserTeamUploadImage.aspx.designer.cs">
+      <DependentUpon>UserTeamUploadImage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserTeamView.aspx.cs">
+      <DependentUpon>UserTeamView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserTeamView.aspx.designer.cs">
+      <DependentUpon>UserTeamView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserTeam\UserTeamEdit_js.aspx.cs">
+      <DependentUpon>UserTeamEdit_js.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserTeam\UserTeamEdit_js.aspx.designer.cs">
+      <DependentUpon>UserTeamEdit_js.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserView.aspx.cs">
+      <DependentUpon>UserView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserView.aspx.designer.cs">
+      <DependentUpon>UserView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeLog.ascx.cs">
+      <DependentUpon>ViewChangeLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeLog.ascx.designer.cs">
+      <DependentUpon>ViewChangeLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebUtils\HtmlRemoval.cs" />
+    <Compile Include="WebUtils\IntiPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebUtils\WebControlManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\inti2008.Data\inti2008.Data.csproj">
+      <Project>{02EBFD23-EBA1-47D6-92B3-116A10163555}</Project>
+      <Name>inti2008.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminApproveUserTeams.aspx" />
+    <Content Include="AdminEditClub.aspx" />
+    <Content Include="AdminEditMatch.aspx" />
+    <Content Include="AdminEditNews.aspx" />
+    <Content Include="AdminEditRules.aspx" />
+    <Content Include="AdminMain.aspx" />
+    <Content Include="AdminPlayerEdit.aspx" />
+    <Content Include="AdminPlayerImport.aspx" />
+    <Content Include="AdminPlayerList.aspx" />
+    <Content Include="AdminTournamentEdit.aspx" />
+    <Content Include="AdminTournamentList.aspx" />
+    <Content Include="AdminUpdateMatch.aspx" />
+    <Content Include="App_Themes\default\img\stands.jpg" />
+    <Content Include="ChangePassword.aspx" />
+    <Content Include="Completion.asmx" />
+    <Content Include="DaySelector.ascx" />
+    <Content Include="Error.aspx" />
+    <Content Include="ForgotPassword.aspx" />
+    <Content Include="ForumEntries.ascx" />
+    <Content Include="ForumViewThread.aspx" />
+    <Content Include="ForumViewThreads.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="img\action_stop.gif" />
+    <Content Include="img\arrow_down.gif" />
+    <Content Include="img\arrow_left.gif" />
+    <Content Include="img\arrow_right.gif" />
+    <Content Include="img\arrow_up.gif" />
+    <Content Include="img\bggrad.gif" />
+    <Content Include="img\comment_yellow.gif" />
+    <Content Include="img\email.png" />
+    <Content Include="img\email_open.png" />
+    <Content Include="img\flag_green.gif" />
+    <Content Include="img\flag_orange.gif" />
+    <Content Include="img\flag_red.gif" />
+    <Content Include="img\flag_white.gif" />
+    <Content Include="img\gradientButton.png" />
+    <Content Include="img\grdback.png" />
+    <Content Include="img\green_check.png" />
+    <Content Include="img\icon_accept.gif" />
+    <Content Include="img\icon_alert.gif" />
+    <Content Include="img\icon_email.gif" />
+    <Content Include="img\icon_user.gif" />
+    <Content Include="img\redGradientButton.png" />
+    <Content Include="img\red_flag.png" />
+    <Content Include="inti2008.Master" />
+    <Content Include="MatchView.aspx" />
+    <Content Include="MediaPlayer.aspx" />
+    <Content Include="media\Matchuppdatering.wmv" />
+    <Content Include="menu.ascx" />
+    <Content Include="MessageCreate.aspx" />
+    <Content Include="MessageView.aspx" />
+    <Content Include="MyTournamentEdit.aspx" />
+    <Content Include="MyTournamentStanding.aspx" />
+    <Content Include="PlayerList.aspx" />
+    <Content Include="PlayerSelector.aspx" />
+    <Content Include="PlayerView.aspx" />
+    <Content Include="PrivateTournaments.ascx" />
+    <Content Include="PrivateTournaments.aspx" />
+    <Content Include="Rss.ascx" />
+    <Content Include="RulesShow.aspx" />
+    <Content Include="SignIn.aspx" />
+    <Content Include="SignUp.aspx" />
+    <Content Include="Standing.aspx" />
+    <Content Include="TeamView.aspx" />
+    <Content Include="TournamentSelector.ascx" />
+    <Content Include="TournamentStanding.ascx" />
+    <Content Include="UploadImage.ascx" />
+    <Content Include="UserSettings.aspx" />
+    <Content Include="UserTeamEdit.aspx" />
+    <Content Include="UserTeamUploadImage.aspx" />
+    <Content Include="UserTeamView.aspx" />
+    <Content Include="UserView.aspx" />
+    <Content Include="ViewChangeLog.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminEditUser.aspx" />
+    <Content Include="media\Nyheter.wmv" />
+    <Content Include="media\Professional.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="News.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="api\TwAuthCallback.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="api\inti\GetUserTeam.ashx" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1326</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1326/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
