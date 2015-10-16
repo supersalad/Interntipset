@@ -147,6 +147,7 @@
                             Text="Kör Clean" ToolTip="Rensa kommande versioner"
                             OnClick="btnCleanTeam_Click" />    
                     <asp:Button runat="server" ID="btnRemoveVersion" CssClass="btn btn-danger" Text="Ta bort vald version" OnClick="btnRemoveVersion_OnClick"/>
+                    <asp:Button runat="server" ID="btnRemoveDuplicateTransfers" CssClass="btn btn-danger" Text="Rensa dubbla transders" OnClick="btnRemoveDuplicateTransfers_OnClick"/>
                     </div>
                 
             </div>

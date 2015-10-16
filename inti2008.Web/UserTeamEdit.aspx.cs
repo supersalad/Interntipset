@@ -1474,5 +1474,14 @@ namespace inti2008.Web
         }
 
 
+        protected void btnRemoveDuplicateTransfers_OnClick(object sender, EventArgs e)
+        {
+            using (var db = Global.GetConnection())
+            {
+                var teamManagement = new UserTeamManagement(Global.ConnectionString, SessionProps);
+
+                teamManagement.RemoveDuplicateTransfers(db, TeamId);
+            }
+        }
     }
 }

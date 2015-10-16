@@ -129,6 +129,37 @@ namespace inti2008.Data
             LogEvent(teamId, typeof(Inti_Team), SessionProperties.UserGuid, SessionProperties.ClientInfo, EventType.Update, "Genomfört byten");
         }
 
+        public void RemoveDuplicateTransfers(IntiDataContext db, Guid teamId)
+        {
+            
+            var summary = from tf in db.Inti_TeamTransfer
+                where tf.TeamGUID == teamId
+                group tf by new {tf.TransferDate, tf.AthleteInGUID, tf.AthleteOutGUID}
+                into dup
+                select new {dup.Key.TransferDate,
+                    dup.Key.AthleteInGUID,
+                    dup.Key.AthleteOutGUID,
+                    Count = dup.Count()
+                };
+
+            var duplicates = summary.Where(s => s.Count > 1).ToList();
+
+            foreach (var duplicate in duplicates)
+            {
+                //remove one of the duplicates
+                var toDelete = db.Inti_TeamTransfer.FirstOrDefault(
+                    tf =>
+                        tf.TeamGUID == teamId && tf.TransferDate == duplicate.TransferDate &&
+                        tf.AthleteInGUID == duplicate.AthleteInGUID && tf.AthleteOutGUID == duplicate.AthleteOutGUID);
+
+                if (toDelete == null) continue;
+
+                db.Inti_TeamTransfer.DeleteOnSubmit(toDelete);
+            }
+
+            db.SubmitChanges();
+        }
+
         public void ReloadTransferVersion(IntiDataContext db, Inti_TeamVersion transferVersion, Inti_TeamVersion currentVersion, Guid teamId)
         {
             //delete the ones in transferversion
