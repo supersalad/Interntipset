@@ -21,14 +21,15 @@ namespace inti2008.Data
         /// Return the current transfer period if any
         /// </summary>
         /// <returns></returns>
-        public Inti_TransferPeriod GetCurrentTransferPeriod()
+        public Inti_TransferPeriod GetCurrentTransferPeriod(DateTime date)
         {
+            
             using (var db = new IntiDataContext(_connectionString))
             {
                 var transferPeriods = db.Inti_TransferPeriod.Where(tf => tf.TournamentGUID == SessionProperties.SelectedTournament.GUID).ToList();
                 foreach (var tf in transferPeriods)
                 {
-                    if (tf.StartDate <= DateTime.Now && tf.EndDate >= DateTime.Now)
+                    if (tf.StartDate <= date && tf.EndDate >= date)
                     {
                         return tf;
                     }

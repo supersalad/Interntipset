@@ -14,13 +14,13 @@ namespace inti2008.Web
             ShowTournamentRules();
 
             //edit or view?
-            pnlSavedTeamInfo.Visible = (Tournament.EndRegistration < DateTime.Now);
-            pnlTeamEdit.Visible = (Tournament.EndRegistration >= DateTime.Now);
+            pnlSavedTeamInfo.Visible = (Tournament.EndRegistration < CurrentDate);
+            pnlTeamEdit.Visible = (Tournament.EndRegistration >= CurrentDate);
             var imageDeadline = Tournament.EndRegistration.AddDays(14);
-            btnUploadImage.Visible = (imageDeadline >= DateTime.Now && TeamId != Guid.Empty);
+            btnUploadImage.Visible = (imageDeadline >= CurrentDate && TeamId != Guid.Empty);
             if (btnUploadImage.Visible)
             {
-                var timeLeftForImage = imageDeadline.Subtract(DateTime.Now);
+                var timeLeftForImage = imageDeadline.Subtract(CurrentDate);
                 lblUploadImageInfo.Text = timeLeftForImage.ToFriendlyLocalizedString(false) +
                                           " kvar för att ladda upp bild.";
             }
@@ -73,7 +73,7 @@ namespace inti2008.Web
                 if (_isInTransferWindow.HasValue)
                     return _isInTransferWindow.Value;
 
-                var tf = new CommonDataFetches(Global.ConnectionString, SessionProps).GetCurrentTransferPeriod();
+                var tf = new CommonDataFetches(Global.ConnectionString, SessionProps).GetCurrentTransferPeriod(CurrentDate);
 
                 _isInTransferWindow = (tf != null);
 
@@ -82,10 +82,26 @@ namespace inti2008.Web
 
         }
 
+
+        private DateTime CurrentDate
+        {
+            get
+            {
+                DateTime checkDate;
+                if (Session["FAKEDATE"] == null || string.IsNullOrEmpty(Session["FAKEDATE"].ToString()) || !DateTime.TryParse(Session["FAKEDATE"].ToString(), out checkDate))
+                {
+                    return DateTime.Now;
+                }
+
+                txtFakeDate.Text = checkDate.ToString("yyyy-MM-dd");
+                return checkDate;
+            }
+        }
         
         private void CheckTransferWindow(bool undoChanges)
         {
-            var tf = new CommonDataFetches(Global.ConnectionString, Global.SessionProperties).GetCurrentTransferPeriod();
+            
+            var tf = new CommonDataFetches(Global.ConnectionString, Global.SessionProperties).GetCurrentTransferPeriod(CurrentDate);
             if (tf != null)
             {
                 ShowTransferWindow(tf, undoChanges);
@@ -155,17 +171,18 @@ namespace inti2008.Web
         {
             currentVersion = null;
             transferVersion = null;
+            var currentDate = CurrentDate;
 
             var teamVersions = db.Inti_TeamVersion.Where(tv => tv.TeamGUID == TeamId);
             foreach (var teamVersion in teamVersions.OrderByDescending(tv => tv.Version))
             {
-                if ((teamVersion.ValidFrom == null || teamVersion.ValidFrom >= DateTime.Now) && teamVersion.ValidTo == null)
+                if ((teamVersion.ValidFrom == null || teamVersion.ValidFrom >= currentDate) && teamVersion.ValidTo == null)
                 {
                     //we have our version
                     transferVersion = teamVersion;
                 }
-                if (teamVersion.ValidFrom < DateTime.Now
-                    && (teamVersion.ValidTo ?? DateTime.Now).AddDays(1) >= DateTime.Now)
+                if (teamVersion.ValidFrom < currentDate
+                    && (teamVersion.ValidTo ?? currentDate).AddDays(1) >= currentDate)
                 {
                     currentVersion = teamVersion;
                 }
@@ -500,8 +517,8 @@ namespace inti2008.Web
                 }
 
                 //don't show current and future line up unless we're in a transfer window
-                pnlSavedLineUp.Visible = (Tournament.EndRegistration < DateTime.Now);
-                pnlFutureLineUp.Visible = (Tournament.EndRegistration < DateTime.Now);
+                pnlSavedLineUp.Visible = (Tournament.EndRegistration < CurrentDate);
+                pnlFutureLineUp.Visible = (Tournament.EndRegistration < CurrentDate);
 
                 teamChangeLog.LoadChangeLog(TeamId);
             }
@@ -843,7 +860,7 @@ namespace inti2008.Web
 
         private void LoadTeamForEdit(Dictionary<string, List<Inti_TeamAthlete>> lineUp)
         {
-            if ((Tournament.EndRegistration >= DateTime.Now && Tournament.StartRegistration <= DateTime.Now))
+            if ((Tournament.EndRegistration >= CurrentDate && Tournament.StartRegistration <= CurrentDate))
             {
                 //ok to edit team, load controls
                 using (var db = Global.GetConnection())
@@ -1400,7 +1417,7 @@ namespace inti2008.Web
                 Inti_TransferPeriod transferPeriod = null;
                 foreach (var tf in transferPeriods)
                 {
-                    if (tf.StartDate <= DateTime.Now && tf.EndDate >= DateTime.Now)
+                    if (tf.StartDate <= CurrentDate && tf.EndDate >= CurrentDate)
                     {
                         transferPeriod = tf;
                         break;
@@ -1441,7 +1458,7 @@ namespace inti2008.Web
                 Inti_TransferPeriod transferPeriod = null;
                 foreach (var tf in transferPeriods)
                 {
-                    if (tf.StartDate <= DateTime.Now && tf.EndDate >= DateTime.Now)
+                    if (tf.StartDate <= CurrentDate && tf.EndDate >= CurrentDate)
                     {
                         transferPeriod = tf;
                         break;
@@ -1482,6 +1499,31 @@ namespace inti2008.Web
 
                 teamManagement.RemoveDuplicateTransfers(db, TeamId);
             }
+        }
+
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            //ladda bara om...
+
+            DateTime checkDate;
+            if (string.IsNullOrEmpty(txtFakeDate.Text) || !DateTime.TryParse(txtFakeDate.Text, out checkDate))
+            {
+                Session["FAKEDATE"] = null;
+                return;
+            }
+
+            Session["FAKEDATE"] = checkDate;
+
+            //reload
+            
+
+
+        }
+
+        protected void btnClearFakeDate_Click(object sender, EventArgs e)
+        {
+            Session["FAKEDATE"] = null;
+            txtFakeDate.Text = null;
         }
     }
 }

@@ -6,7 +6,7 @@
   <!-- nygammal skarp connection -->
   <!--Data source=wsp-sql01;Initial catalog=interntipset;User Id=inti;Password=brollan1-->
   <!-- lokal connection -->
-  <!--Data Source=PC01127\SQLEXPRESS;Initial Catalog=inti;User ID=inti;Password=brollan1-->
+  <!--Data Source=PC01127\SQLEXPRESS;Initial Catalog=interntipset;User ID=inti.dev;Password=inti-->
   <!-- gammal skarp connection -->
   <!--Data source=CL-SQL01;Initial catalog=interntipset;User Id=inti;Password=brollan1-->
   <Table Name="dbo.ext_ChangeLog" Member="Ext_ChangeLog">

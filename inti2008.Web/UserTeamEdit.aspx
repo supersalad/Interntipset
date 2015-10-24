@@ -148,6 +148,10 @@
                             OnClick="btnCleanTeam_Click" />    
                     <asp:Button runat="server" ID="btnRemoveVersion" CssClass="btn btn-danger" Text="Ta bort vald version" OnClick="btnRemoveVersion_OnClick"/>
                     <asp:Button runat="server" ID="btnRemoveDuplicateTransfers" CssClass="btn btn-danger" Text="Rensa dubbla transders" OnClick="btnRemoveDuplicateTransfers_OnClick"/>
+                    <br />
+                    <asp:TextBox ID="txtFakeDate" runat="server" type="date" />
+                    <asp:Button runat="server" ID="btnRefresh" CssClass="btn btn-warning" Text="Fejka datum" OnClick="btnRefresh_Click" />
+                    <asp:Button runat="server" ID="btnClearFakeDate" CssClass="btn btn-warning" Text="Rensa fejkat datum" OnClick="btnClearFakeDate_Click" />
                     </div>
                 
             </div>
