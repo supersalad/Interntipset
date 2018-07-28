@@ -57,8 +57,8 @@ namespace inti2008.Data
                     userPerm.PermissionGUID = perm.GUID;
                     db.Sys_UserPermission.InsertOnSubmit(userPerm);
                 }
-                
-                db.SubmitChanges();    
+
+                db.SubmitChanges();
             }
 
         }
@@ -278,7 +278,7 @@ namespace inti2008.Data
                     message += String.Format("Changed {0} from {1} to {2}. ", "UserName", user.UserName, userName);
                     user.UserName = userName;
                 }
-                
+
                 if (user.FirstName!= firstName)
                 {
                     message += String.Format("Changed {0} from {1} to {2}. ", "FirstName", user.FirstName, firstName);
@@ -347,7 +347,7 @@ namespace inti2008.Data
 
     public sealed class Parameters
     {
-        
+
 
         #region Thread-safe, lazy Singleton
 
@@ -376,7 +376,7 @@ namespace inti2008.Data
         /// <summary>
         /// Private constructor to enforce singleton
         /// </summary>
-        private Parameters() 
+        private Parameters()
         {
             try
             {
@@ -387,7 +387,7 @@ namespace inti2008.Data
             {
                 throw new Exception("Could not initiate Parameters, configuration is missing?", exception);
             }
-            
+
         }
 
         /// <summary>
@@ -484,7 +484,7 @@ namespace inti2008.Data
             {
                 if (String.IsNullOrEmpty(mailSender))
                     InitParameters();
-               
+
                 return mailSender;
             }
         }
@@ -512,7 +512,7 @@ namespace inti2008.Data
 
         public string SupportMail
         {
-            get 
+            get
             {
                 if (String.IsNullOrEmpty(supportMail))
                     InitParameters();
@@ -573,7 +573,7 @@ namespace inti2008.Data
                 //AddParameter(db, "TwitterAccessToken");
                 //AddParameter(db, "TwitterAccessTokenSecret");
             }
-                
+
         }
 
 
@@ -640,7 +640,7 @@ namespace inti2008.Data
                 parameter.GUID = Guid.NewGuid();
                 parameter.Name = parameterName;
                 parameter.Description = parameterName;
-                
+
 
                 db.Sys_Parameter.InsertOnSubmit(parameter);
 
@@ -655,28 +655,34 @@ namespace inti2008.Data
         {
             try
             {
-                //create mail to user
-                var message = new MailMessage(mailSender, mailRecipient);
-
-                message.Subject = subject;
-                message.Body = body;
-                message.IsBodyHtml = true;
-
-                //Send the message.
-                var client = new SmtpClient(Parameters.Instance.MailServer,Parameters.Instance.MailServerPort);
-                client.EnableSsl = Parameters.Instance.MailServerAuthenticate;
-                // Add credentials if the SMTP server requires them.
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(Parameters.Instance.MailServerUserName, Parameters.Instance.MailServerPassword);
-                client.Send(message);
+                MailMessageNoCatch(subject, body, mailSender, mailRecipient);
             }
             catch (Exception exception)
             {
-                
+
                 //do nothing
             }
 
 
+        }
+
+        public static void MailMessageNoCatch(string subject, string body, string mailSender, string mailRecipient)
+        {
+//create mail to user
+            var message = new MailMessage(mailSender, mailRecipient);
+
+            message.Subject = subject;
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            //Send the message.
+            var client = new SmtpClient(Parameters.Instance.MailServer, Parameters.Instance.MailServerPort);
+            client.EnableSsl = Parameters.Instance.MailServerAuthenticate;
+            // Add credentials if the SMTP server requires them.
+            client.UseDefaultCredentials = false;
+            client.Credentials =
+                new NetworkCredential(Parameters.Instance.MailServerUserName, Parameters.Instance.MailServerPassword);
+            client.Send(message);
         }
     }
 

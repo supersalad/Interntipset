@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <h4>Editera lag</h4>
-    
+
         <div class="row">
             <div class="col-md-4">
                 <p>
@@ -61,7 +61,7 @@
                     <asp:Label ID="lblUploadImageInfo" runat="server" />
                 </div>
             </div>
-        
+
 
         <asp:Panel ID="pnlTeamEdit" runat="server" Visible="false">
             <div class="col-md-4">
@@ -72,17 +72,17 @@
                       </div>
                     <div class="form-group">
                         <label for="<%=TeamDescription.ClientID %>">Presentation:</label>
-                        <asp:TextBox ID="TeamDescription" runat="server" MaxLength="1023" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>    
+                        <asp:TextBox ID="TeamDescription" runat="server" MaxLength="1023" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                     </div>
                     <div class="form-group">
                         <asp:Button ID="btnDeleteTeam" runat="server" CssClass="btn btn-warning"
                             Text="Ta bort laget" ToolTip="Ta bort detta laget helt och hållet"
                             OnClick="btnDeleteTeam_Click" Visible="false" />
                         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Spara"
-                            ToolTip="Spara ändringarna i laget" OnClick="btnSave_Click" />    
+                            ToolTip="Spara ändringarna i laget" OnClick="btnSave_Click" />
                     </div>
                 </form>
-                
+
             </div>
 
             <div class="col-md-4">
@@ -132,20 +132,20 @@
                 </p>
             </div>
         </asp:Panel>
-            
+
         <asp:Panel ID="pnlSuperAdmin" runat="server" Visible="false">
             <div class="col-md-4">
                 <div>
                     <h4>Versioner</h4>
                     <asp:Label runat="server" ID="lblTeamVersions"></asp:Label>
                 </div>
-                
+
                 <div>
                     <asp:TextBox runat="server" ID="txtVersionToRemove" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div><asp:Button ID="btnCleanTeam" runat="server" CssClass="btn btn-warning"
                             Text="Kör Clean" ToolTip="Rensa kommande versioner"
-                            OnClick="btnCleanTeam_Click" />    
+                            OnClick="btnCleanTeam_Click" />
                     <asp:Button runat="server" ID="btnRemoveVersion" CssClass="btn btn-danger" Text="Ta bort vald version" OnClick="btnRemoveVersion_OnClick"/>
                     <asp:Button runat="server" ID="btnRemoveDuplicateTransfers" CssClass="btn btn-danger" Text="Rensa dubbla transders" OnClick="btnRemoveDuplicateTransfers_OnClick"/>
                     <br />
@@ -153,13 +153,13 @@
                     <asp:Button runat="server" ID="btnRefresh" CssClass="btn btn-warning" Text="Fejka datum" OnClick="btnRefresh_Click" />
                     <asp:Button runat="server" ID="btnClearFakeDate" CssClass="btn btn-warning" Text="Rensa fejkat datum" OnClick="btnClearFakeDate_Click" />
                     </div>
-                
+
             </div>
-            
+
 
             </asp:Panel>
     </div>
-    
+
 
 
 
@@ -176,11 +176,11 @@
         <h6>Ändringslogg</h6>
         <inti:ViewChangeLog ID="teamChangeLog" runat="server" />
     </div>
-    
+
     <script type="text/javascript">
-        
+
         function DeletePlayer(athleteId, teamVersionId) {
-            
+
             if (event) {
                 event.preventDefault();
             }
