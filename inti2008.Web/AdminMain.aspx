@@ -65,6 +65,10 @@
                     Text="Slå på MiniProfiler" ToolTip="Ger dig timing för sidorna i en timma"
                     OnClick="btnProfiling_Click" />
             </div>
+            <div>
+                <asp:Button ID="btnTestMail" runat="server" Visible="false" CssClass="btn"
+                            Text="Testa mailen" OnClick="btnTestMail_OnClick"/>
+            </div>
         </div>
         <div class="col-md-6">
             <h5>Mesta uppdaterarna</h5>

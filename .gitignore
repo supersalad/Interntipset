@@ -68,3 +68,6 @@ Thumbs.db
 
 # Folder config file
 Desktop.ini
+/inti2008.Web/bin/inti2008.Data.dll
+/inti2008.Web/bin/inti2008.Web.dll
+/inti2008.Web/bin/inti2008.Data.dll.config
