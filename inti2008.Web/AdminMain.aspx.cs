@@ -18,7 +18,7 @@ namespace inti2008.Web
                 BtnNews.Visible = true;
                 lnkNewsInstructions.Visible = true;
             }
-                
+
 
             if (SessionProps.HasPermission("ADMIN") || SessionProps.HasPermission("USER_ATHLETEUPDATE"))
             {
@@ -45,6 +45,9 @@ namespace inti2008.Web
             if (SessionProps.HasPermission("ADMIN_SYSTEM"))
                 btnProfiling.Visible = true;
 
+            if (SessionProps.HasPermission("ADMIN_SYSTEM"))
+                btnTestMail.Visible = true;
+
             if (SessionProps.HasPermission("ADMIN_SYSTEM") && String.IsNullOrEmpty(Parameters.Instance.TwitterAccessTokenSecret))
                 btnSignInToTwitter.Visible = true;
 
@@ -63,6 +66,16 @@ namespace inti2008.Web
             var output = updaters.Aggregate(String.Empty, (current, keyValuePair) => current + String.Format("{0} {1} ({2})<br>", keyValuePair.Key.FirstName, keyValuePair.Key.LastName, keyValuePair.Value));
 
             TopUpdatersPanel.Text = output;
+
+            if (SessionProps.UserName == "folkesson@gmail.com")
+            {
+                TopUpdatersPanel.Text += "</br>";
+                TopUpdatersPanel.Text += "<ul>";
+                TopUpdatersPanel.Text += "<li>MailServer: " + Parameters.Instance.MailServer + "</li>";
+                TopUpdatersPanel.Text += "<li>MailServerUserName: " + Parameters.Instance.MailServerUserName + "</li>";
+                TopUpdatersPanel.Text += "</ul>";
+
+            }
         }
 
         protected void BtnNews_Click(object sender, EventArgs e)
@@ -92,12 +105,12 @@ namespace inti2008.Web
 
         protected void lnkUpdateMatchesInstructions_Click(object sender, EventArgs e)
         {
-            WebControlManager.RedirectWithQueryString("MediaPlayer.aspx", new string[] { "mediaToShow" }, new string[] { "MatchUpdate" }); 
+            WebControlManager.RedirectWithQueryString("MediaPlayer.aspx", new string[] { "mediaToShow" }, new string[] { "MatchUpdate" });
         }
 
         protected void lnkNewsInstructions_Click(object sender, EventArgs e)
         {
-            WebControlManager.RedirectWithQueryString("MediaPlayer.aspx", new string[] { "mediaToShow" }, new string[] { "NewsUpdate" }); 
+            WebControlManager.RedirectWithQueryString("MediaPlayer.aspx", new string[] { "mediaToShow" }, new string[] { "NewsUpdate" });
         }
 
         protected void btnRules_Click(object sender, EventArgs e)
@@ -135,6 +148,19 @@ namespace inti2008.Web
             Global.TwitterService = null;
             Parameters.Instance.TwitterAccessTokenSecret = String.Empty;
             Parameters.Instance.TwitterAccessToken = String.Empty;
+        }
+
+        protected void btnTestMail_OnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                MailAndLog.MailMessageNoCatch("Test mail", "Some body", Parameters.Instance.MailSender,
+                    Parameters.Instance.SupportMail);
+            }
+            catch (Exception exception)
+            {
+                TopUpdatersPanel.Text = exception.ToString();
+            }
         }
     }
 }
