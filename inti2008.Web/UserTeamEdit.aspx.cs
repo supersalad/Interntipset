@@ -53,7 +53,7 @@ namespace inti2008.Web
 
                 //are we in transferwindow?
                 CheckTransferWindow(false);
-                
+
                 LoadTeam();
 
                 //super admin?
@@ -97,10 +97,10 @@ namespace inti2008.Web
                 return checkDate;
             }
         }
-        
+
         private void CheckTransferWindow(bool undoChanges)
         {
-            
+
             var tf = new CommonDataFetches(Global.ConnectionString, Global.SessionProperties).GetCurrentTransferPeriod(CurrentDate);
             if (tf != null)
             {
@@ -111,7 +111,7 @@ namespace inti2008.Web
 
         private void ShowTransferWindow(Inti_TransferPeriod tf, bool undoChanges)
         {
-            
+
             //show info about the transfer period
             lblTransferPeriodInfo.Text = "Transferfönstret " + tf.Name + " är öppet från och med " +
                                          tf.StartDate.ToString() + " till " + tf.EndDate + ".";
@@ -120,7 +120,7 @@ namespace inti2008.Web
 
             pnlFutureLineUp.Visible = false;
 
-            
+
 
             //create new team version if needed
             using (var db = Global.GetConnection())
@@ -129,7 +129,7 @@ namespace inti2008.Web
                 Inti_TeamVersion currentVersion = null;
 
                 GetCurrentAndTransferVersion(db, out currentVersion, out transferVersion);
-                
+
                 if(transferVersion.ValidFrom == null)
                 {
                     lblTransferPeriodInfo.Text += "<br><div class=\"redFrame\"><b>" + "Tänk på att du måste klicka på knappen \"Genomför byten\" ";
@@ -165,7 +165,7 @@ namespace inti2008.Web
 
         }
 
-        
+
 
         private void GetCurrentAndTransferVersion(IntiDataContext db, out Inti_TeamVersion currentVersion, out Inti_TeamVersion transferVersion)
         {
@@ -250,7 +250,7 @@ namespace inti2008.Web
                 cell = new TableCell();
                 lbl = new Label();
                 lbl.Text = String.Format("{0} {1}", teamAthlete.Inti_AthleteClub.Inti_Athlete.FirstName,
-                                         teamAthlete.Inti_AthleteClub.Inti_Athlete.LastName).Trim();                               
+                                         teamAthlete.Inti_AthleteClub.Inti_Athlete.LastName).Trim();
                 cell.Controls.Add(lbl);
                 row.Cells.Add(cell);
 
@@ -260,7 +260,7 @@ namespace inti2008.Web
                 lbl.Text = teamAthlete.Inti_AthleteClub.Inti_Club.ShortName;
                 cell.Controls.Add(lbl);
                 row.Cells.Add(cell);
-                
+
                 //player price
                 cell = new TableCell();
                 lbl = new Label();
@@ -325,7 +325,7 @@ namespace inti2008.Web
                 else
                     return new Guid(value.ToString());
             }
-            set 
+            set
             {
                 ViewState["teamGUID"] = value;
             }
@@ -345,22 +345,22 @@ namespace inti2008.Web
                     Inti_TeamVersion mostRecentVersion;
                     if (IsInOpenTransferWindow)
                     {
-                        mostRecentVersion = teamVersions.OrderByDescending(tv => tv.Version).ToList().First();    
+                        mostRecentVersion = teamVersions.OrderByDescending(tv => tv.Version).ToList().First();
                     }
                     else
                     {
                         if (teamVersions.Count() > 1)
-                            mostRecentVersion = teamVersions.OrderByDescending(tv => tv.Version).ToList()[1]; 
+                            mostRecentVersion = teamVersions.OrderByDescending(tv => tv.Version).ToList()[1];
                         else
-                            mostRecentVersion = teamVersions.OrderByDescending(tv => tv.Version).ToList().First(); 
+                            mostRecentVersion = teamVersions.OrderByDescending(tv => tv.Version).ToList().First();
                     }
-                    
+
 
                     ViewState["CurrentVersion"] = mostRecentVersion.GUID;
 
                     return mostRecentVersion.GUID;
                 }
-                
+
             }
         }
 
@@ -390,10 +390,10 @@ namespace inti2008.Web
                             return _tournament;
                         }
                     }
-                        
+
                 }
-                    
-                
+
+
                 using (var db = Global.GetConnection())
                 {
                     _tournament =db.Inti_Tournament.Single(t => t.GUID == new Guid(value.ToString()));
@@ -421,12 +421,12 @@ namespace inti2008.Web
                     if (team.Sys_User.GUID != SessionProps.UserGuid && !SessionProps.HasPermission("ADMIN"))
                     {
                         //log the attempted breach
-                        MailAndLog.SendMessage("Försök att sabba lag", 
+                        MailAndLog.SendMessage("Försök att sabba lag",
                             String.Format("Användaren: {0} med guid: {1} försökte öppna laget: {2} med guid: {3}", SessionProps.UserName, SessionProps.UserGuid.ToString(), team.Name, team.GUID),
                             Parameters.Instance.MailSender, Parameters.Instance.SupportMail);
                         throw new AccessViolationException("Attempt to open other users team");
                     }
-                        
+
 
                     lblTeamName.Text = team.Name;
                     lblTeamDescription.Text = team.Presentation;
@@ -448,7 +448,7 @@ namespace inti2008.Web
                             imgTeamImage.ImageUrl = "~/img/user/" + team.Picture;
                             imgTeamImage.Visible = true;
                         }
-                            
+
                     }
                     Inti_TeamVersion currentVersion;
                     Inti_TeamVersion transferVersion;
@@ -493,13 +493,13 @@ namespace inti2008.Web
 
                     if(transferVersion != null && lineUpTransfer != null && IsInOpenTransferWindow)
                     {
-                        ValidateTeam(GetLineUpAsList(lineUpTransfer));    
+                        ValidateTeam(GetLineUpAsList(lineUpTransfer));
                     }
                     else
                     {
                         ValidateTeam(listLineUp);
                     }
-                    
+
                     //is activated but not valid?
                     if (!btnActivate.Visible && (team.IsActive ?? false)  && pnlTeamEdit.Visible)
                     {
@@ -507,7 +507,7 @@ namespace inti2008.Web
                         db.SubmitChanges();
                         btnActivate.Visible = true;
                     }
-                        
+
 
                     //if team is activated - no need to do it again
                     if (btnActivate.Visible && (team.IsActive ?? false))
@@ -553,7 +553,7 @@ namespace inti2008.Web
                     LineUp[athlete.Inti_AthleteClub.Inti_Position.ShortName].Add(athlete);
                 }
             }
-            
+
             var returnString = "";
 
             //print manager
@@ -601,7 +601,7 @@ namespace inti2008.Web
                 //generera betallänk
                 var paySonLink =
                     String.Format(
-                        "https://www.payson.se//SendMoney/?De={0}&Se=folkesson%40gmail.com&Cost=100%2c00&ShippingAmount=0%2c00&Gr=1",
+                        "https://www.payson.se//SendMoney/?De={0}&Se=jacizd%40hotmail.com&Cost=100%2c00&ShippingAmount=0%2c00&Gr=1",
                         Server.UrlEncode(team.GUID.ToString()));
 
                 var payPalLink =
@@ -635,12 +635,13 @@ namespace inti2008.Web
                 //        paySonLink, payPalLink2);
 
                 //Payson only
-                lblPaymentInfo.Text =
-    String.Format(
-        "<p>Betala för ditt lag</p><p>När du betalt kommer ditt lag markeras som betalt på denna sidan, och betallänken försvinner. Eftersom detta kräver manuellt ingripande från den ideellt arbetande personalen kan det ta ett par dagar.</p><p><a target=\"_blank\" href=\"{0}\">Klicka här för att betala via payson</a></p>",
-        paySonLink);
+                //lblPaymentInfo.Text = String.Format("<p>Betala för ditt lag</p><p>När du betalt kommer ditt lag markeras som betalt på denna sidan, och betallänken försvinner. Eftersom detta kräver manuellt ingripande från den ideellt arbetande personalen kan det ta ett par dagar.</p><p><a target=\"_blank\" rel=\"noreferrer\" href=\"{0}\">Klicka här för att betala via payson</a></p>",paySonLink);
 
+                //lblPaymentInfo.Text = "Betallösning ej klar, kom tillbaka om någon dag...";
 
+                //just text
+                string swishInstructions = "Betala genom att swisha 100 kr till 0704898009 (Jacek Izdebski). Ange lagnamnet i meddelandet. (Tänk på att inte byta lagnamn efter att du swishat!)";
+                lblPaymentInfo.Text = swishInstructions;
             }
         }
 
@@ -681,7 +682,7 @@ namespace inti2008.Web
                             nmbrOfStrikers++;
                             break;
                     }
-                    
+
                     //increase budget
                     teamBudget += teamAthlete.Inti_AthleteClub.Price ?? 0;
 
@@ -745,7 +746,7 @@ namespace inti2008.Web
                 //4-4-2,4-5-1,4-3-3
                 if (nmbrOfDefenders == 4)
                 {
-                    if (!(nmbrOfMidfielders == 4 && nmbrOfStrikers == 2 || 
+                    if (!(nmbrOfMidfielders == 4 && nmbrOfStrikers == 2 ||
                         nmbrOfMidfielders == 5 && nmbrOfStrikers == 1 ||
                         nmbrOfMidfielders == 3 && nmbrOfStrikers == 3))
                     {
@@ -812,7 +813,7 @@ namespace inti2008.Web
                             transferOuts += 1;
                             lblNmbrOfTransfers.Text += String.Format("<br>ut: {0} {1}", teamAthlete.Inti_AthleteClub.Inti_Athlete.FirstName, teamAthlete.Inti_AthleteClub.Inti_Athlete.LastName);
                         }
-                            
+
                     }
 
                     var transferIns = 0;
@@ -824,7 +825,7 @@ namespace inti2008.Web
                             transferIns += 1;
                             lblNmbrOfTransfers.Text += String.Format("<br>in: {0} {1}", teamAthlete.Inti_AthleteClub.Inti_Athlete.FirstName, teamAthlete.Inti_AthleteClub.Inti_Athlete.LastName);
                         }
-                            
+
                     }
 
                     if (transferIns != transferOuts)
@@ -845,7 +846,7 @@ namespace inti2008.Web
                     //anything in the transfers to undo?
                     btnUndoTransfers.Visible = (transferIns > 0 || transferOuts > 0);
                 }
-                
+
             }
 
             btnActivate.Visible = teamOkToApprove;
@@ -855,7 +856,7 @@ namespace inti2008.Web
                 lblMessage.Text = "<div class='alert alert-danger'>" + teamInfo + "</div>";
             else
                 lblMessage.Text = "";
-            
+
         }
 
         private void LoadTeamForEdit(Dictionary<string, List<Inti_TeamAthlete>> lineUp)
@@ -928,10 +929,10 @@ namespace inti2008.Web
                             break;
                         }
                     }
-                    
+
                 }
-                
-                
+
+
             }
         }
 
@@ -962,7 +963,7 @@ namespace inti2008.Web
                     cell = new TableCell();
                     lbl = new Label();
                     lbl.Text = String.Format("{0} {1}", ta.Inti_AthleteClub.Inti_Athlete.FirstName,
-                                             ta.Inti_AthleteClub.Inti_Athlete.LastName).Trim();                               
+                                             ta.Inti_AthleteClub.Inti_Athlete.LastName).Trim();
                     cell.Controls.Add(lbl);
                     row.Cells.Add(cell);
 
@@ -972,7 +973,7 @@ namespace inti2008.Web
                     lbl.Text = ta.Inti_AthleteClub.Inti_Club.ShortName;
                     cell.Controls.Add(lbl);
                     row.Cells.Add(cell);
-                    
+
                     //player price
                     cell = new TableCell();
                     lbl = new Label();
@@ -1020,7 +1021,7 @@ namespace inti2008.Web
             //insert header
             var sHtml = "";
             sHtml += "<div class='list-group-item list-group-item-success'>";
-            
+
 
             sHtml += "<a class='btn btn-primary pull-right'";
             sHtml += " href='PlayerSelector.aspx?teamGuid=" + TeamId.ToString() + "&redirecturl=UserTeamEdit.aspx&position=" + positionShortName + "&tourGUID=" + Tournament.GUID.ToString() + "'";
@@ -1057,11 +1058,11 @@ namespace inti2008.Web
                     //no trade out info in this view
                     //<p class="list-group-item-text"><%# ((DateTime?)Eval("TradeOut")).HasValue ? "Utbytt: " + Eval("TradeOut", "{0:d}" ) : string.Empty  %></p>
 
-                    
+
 
                     sHtml += "</div>";
-    
-                    
+
+
 
                     //remove-button
                     //cell = new TableCell();
@@ -1075,7 +1076,7 @@ namespace inti2008.Web
                 }
             }
 
-            
+
             //var btn = new Button();
             //btn.ID = "btnAdd" + positionShortName;
             //btn.CssClass = "btn btn-primary";
@@ -1169,7 +1170,7 @@ namespace inti2008.Web
             RemoveVersion(guidToRemove);
 
             LoadForSuperAdmin(TeamId);
-            
+
         }
 
 
@@ -1216,7 +1217,7 @@ namespace inti2008.Web
 
                 foreach (var intiTeamAthlete in athletesToDelete)
                 {
-                    db.Inti_TeamAthlete.DeleteOnSubmit(intiTeamAthlete);    
+                    db.Inti_TeamAthlete.DeleteOnSubmit(intiTeamAthlete);
                 }
 
                 foreach (var intiTeamVersion in teamVersionsToDelete)
@@ -1225,14 +1226,14 @@ namespace inti2008.Web
                 }
 
                 db.SubmitChanges();
-                
+
             }
 
         }
 
 
 
-        
+
 
         protected void DeletePlayer_Click(object sender, EventArgs e)
         {
@@ -1249,7 +1250,7 @@ namespace inti2008.Web
                         var teamAthlete =
                             db.Inti_TeamAthlete.Single(
                                 ta => ta.Inti_TeamVersion.GUID == TeamVersionId && ta.AthleteGUID == athleteGUID);
-                       
+
                         db.Inti_TeamAthlete.DeleteOnSubmit(teamAthlete);
 
                         db.SubmitChanges();
@@ -1293,7 +1294,7 @@ namespace inti2008.Web
                     teamAthlete.AthleteGUID = athleteGuid;
                     teamAthlete.TeamVersionGUID = TeamVersionId;
                     db.Inti_TeamAthlete.InsertOnSubmit(teamAthlete);
-                    db.SubmitChanges();    
+                    db.SubmitChanges();
                 }
             }
         }
@@ -1308,7 +1309,7 @@ namespace inti2008.Web
 
                 output +=
                     String.Format("{0} {1}", ta.Inti_AthleteClub.Inti_Athlete.FirstName,
-                                  ta.Inti_AthleteClub.Inti_Athlete.LastName).Trim() 
+                                  ta.Inti_AthleteClub.Inti_Athlete.LastName).Trim()
                                   + String.Format(" ({0})", ta.Inti_AthleteClub.Inti_Club.ShortName)
                                   + "<br>";
 
@@ -1377,7 +1378,7 @@ namespace inti2008.Web
                 {
                     var team = db.Inti_Team.Single(t => t.GUID == TeamId);
 
-                    
+
                 }
             }
         }
@@ -1422,7 +1423,7 @@ namespace inti2008.Web
                         transferPeriod = tf;
                         break;
                     }
-                } 
+                }
                 if (transferPeriod != null)
                 {
                     Inti_TeamVersion transferVersion = null;
@@ -1440,9 +1441,9 @@ namespace inti2008.Web
 
                     LoadTeam();
                 }
-                
+
             }
-            
+
 
 
         }
@@ -1515,7 +1516,7 @@ namespace inti2008.Web
             Session["FAKEDATE"] = checkDate;
 
             //reload
-            
+
 
 
         }

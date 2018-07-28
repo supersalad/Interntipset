@@ -68,9 +68,11 @@ Thumbs.db
 
 # Folder config file
 Desktop.ini
-/inti2008.Web/bin/inti2008.Data.dll.config
 /.vs/config/applicationhost.config
 /.vs/inti2008/v15/Server/sqlite3/db.lock
+/inti2008.Web/bin/inti2008.Data.dll
+/inti2008.Web/bin/inti2008.Web.dll
+/inti2008.Web/bin/inti2008.Data.dll.config
 /.vs/inti2008/v15/Server/sqlite3/storage.ide
 /.vs/inti2008/v15/Server/sqlite3/storage.ide-shm
 /.vs/inti2008/v15/Server/sqlite3/storage.ide-wal

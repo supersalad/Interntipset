@@ -3,7 +3,7 @@
     <title>Editera matcher</title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
-<asp:LinqDataSource ID="ldsClubs" runat="server" ContextTypeName="inti2008.Data.IntiDataContext" TableName="Inti_Club" 
+<asp:LinqDataSource ID="ldsClubs" runat="server" ContextTypeName="inti2008.Data.IntiDataContext" TableName="Inti_Club"
 Where="TournamentGUID == Guid(@TournamentGUID)">
 <WhereParameters>
     <asp:SessionParameter SessionField="rp_GUID" Type="Object" Name="TournamentGUID" />
@@ -12,7 +12,7 @@ Where="TournamentGUID == Guid(@TournamentGUID)">
 <h4>Editera matcher</h4>
 <div class="formLoosePane">
     <asp:GridView ID="grdMatches" runat="server"
-        AutoGenerateColumns="false" 
+        AutoGenerateColumns="false"
         CssClass="table table-bordered"
         onrowdatabound="grdMatches_RowDataBound">
         <Columns>
@@ -90,7 +90,7 @@ Where="TournamentGUID == Guid(@TournamentGUID)">
     </asp:GridView>
 </div>
 <div class="formButtons">
-    <asp:Button ID="btnSave" runat="server" CssClass="actionButton" Text="Spara" 
+    <asp:Button ID="btnSave" runat="server" CssClass="actionButton" Text="Spara"
         ToolTip="Spara ändringar ovan" onclick="btnSave_Click" />
 </div>
 <div class="formPaneNR">
@@ -111,8 +111,8 @@ Where="TournamentGUID == Guid(@TournamentGUID)">
     </table>
 </div>
 <div class="formButtons">
-    <asp:Button ID="btnAddMatch" runat="server" Text="Lägg till match" 
-        ToolTip="Lägg till match mellan lagen ovan" CssClass="actionButton" 
+    <asp:Button ID="btnAddMatch" runat="server" Text="Lägg till match"
+        ToolTip="Lägg till match mellan lagen ovan" CssClass="actionButton"
         onclick="btnAddMatch_Click"  />
 </div>
 </asp:Content>
