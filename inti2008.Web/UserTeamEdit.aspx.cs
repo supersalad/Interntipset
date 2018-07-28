@@ -635,9 +635,13 @@ namespace inti2008.Web
                 //        paySonLink, payPalLink2);
 
                 //Payson only
-                lblPaymentInfo.Text = String.Format("<p>Betala för ditt lag</p><p>När du betalt kommer ditt lag markeras som betalt på denna sidan, och betallänken försvinner. Eftersom detta kräver manuellt ingripande från den ideellt arbetande personalen kan det ta ett par dagar.</p><p><a target=\"_blank\" rel=\"noreferrer\" href=\"{0}\">Klicka här för att betala via payson</a></p>",paySonLink);
+                //lblPaymentInfo.Text = String.Format("<p>Betala för ditt lag</p><p>När du betalt kommer ditt lag markeras som betalt på denna sidan, och betallänken försvinner. Eftersom detta kräver manuellt ingripande från den ideellt arbetande personalen kan det ta ett par dagar.</p><p><a target=\"_blank\" rel=\"noreferrer\" href=\"{0}\">Klicka här för att betala via payson</a></p>",paySonLink);
 
                 //lblPaymentInfo.Text = "Betallösning ej klar, kom tillbaka om någon dag...";
+
+                //just text
+                string swishInstructions = "Betala genom att swisha 100 kr till 0704898009 (Jacek Izdebski). Ange lagnamnet i meddelandet. (Tänk på att inte byta lagnamn efter att du swishat!)";
+                lblPaymentInfo.Text = swishInstructions;
             }
         }
 

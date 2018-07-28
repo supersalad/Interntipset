@@ -25,7 +25,7 @@ namespace inti2008.Web
                 LoadMatches();
                 InitNewMatchForm();
             }
-            
+
         }
 
         private void LoadMatches()
@@ -70,19 +70,19 @@ namespace inti2008.Web
                         var clubs = db.Inti_Club.Where(c => c.TournamentGUID == TourId);
 
                         clubsDataSource = clubs.OrderBy(c => c.Name).ToList();
-                    }    
+                    }
                 }
 
                 return clubsDataSource;
             }
         }
 
-        
+
         protected void grdMatches_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                
+
                 ////// load the club dropdowns
                 ////var drp = (DropDownList) e.Row.Cells[0].Controls[0];
                 ////drp.DataTextField = "Name";
@@ -172,17 +172,17 @@ namespace inti2008.Web
                         match.HomeClub = new Guid((row.Cells[0].FindControl("drpHomeTeam") as DropDownList).SelectedValue);
                         match.AwayClub = new Guid((row.Cells[1].FindControl("drpAwayTeam") as DropDownList).SelectedValue);
                         match.TourDay = newTourDay;
-                        match.MatchDate = newMatchDate;    
+                        match.MatchDate = newMatchDate;
                     }
                 }
-    
+
                 db.SubmitChanges();
             }
             LoadMatches();
-            
+
 
         }
 
-        
+
     }
 }
